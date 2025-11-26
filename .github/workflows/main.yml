@@ -1,0 +1,28 @@
+name: CI NuGet
+
+on:
+  push:
+    branches: ["**"]
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies core
+        run: dotnet restore Am.sln
+
+      - name: Build core
+        run: dotnet build Am.sln --configuration Release
+
+      - name: Test
+        run: dotnet test Tests/Tests.csproj --configuration Release --no-build
