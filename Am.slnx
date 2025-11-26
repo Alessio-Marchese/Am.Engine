@@ -1,4 +1,8 @@
 <Solution>
-  <Project Path="Tests/Tests.csproj" />
+  <Folder Name="/Adapters/">
+    <Project Path="MonoGameAdapter/MonoGameAdapter.csproj" Id="1ca82370-6eab-42b4-b6e7-b85aada829b8" />
+  </Folder>
   <Project Path="Engine/Engine.csproj" />
+  <Project Path="Sandbox/Sandbox.csproj" Id="30af06cd-6cb9-4078-9687-111ca0ed7c83" />
+  <Project Path="Tests/Tests.csproj" />
 </Solution>

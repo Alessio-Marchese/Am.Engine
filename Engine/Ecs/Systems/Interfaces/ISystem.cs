@@ -1,4 +1,4 @@
-﻿namespace Am.Engine.Ecs;
+﻿namespace Engine.Ecs.Systems.Interfaces;
 
 public interface ISystem
 {

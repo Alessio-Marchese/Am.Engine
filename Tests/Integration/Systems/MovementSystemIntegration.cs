@@ -1,6 +1,6 @@
-﻿using Am.Engine.Components;
-using Am.Engine.Ecs;
-using Am.Engine.Systems;
+﻿using Engine.Ecs;
+using Engine.Ecs.Components;
+using Engine.Ecs.Systems;
 
 namespace Am.Engine.Tests.Integration.Systems;
 

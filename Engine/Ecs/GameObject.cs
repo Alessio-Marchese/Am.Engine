@@ -1,4 +1,6 @@
-﻿namespace Am.Engine.Ecs;
+﻿using Engine.Ecs.Components.Interfaces;
+
+namespace Engine.Ecs;
 
 public class GameObject
 {

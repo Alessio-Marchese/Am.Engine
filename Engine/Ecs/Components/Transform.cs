@@ -1,6 +1,6 @@
-﻿using Am.Engine.Ecs;
+﻿using Engine.Ecs.Components.Interfaces;
 
-namespace Am.Engine.Components;
+namespace Engine.Ecs.Components;
 
 public class Transform : IComponent
 {
