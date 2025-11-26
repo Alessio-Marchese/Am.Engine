@@ -11,8 +11,11 @@ public class GameObject
         Id = id;
     }
 
-    public void AddComponent<T>(T component) where T : class, IComponent
-        => _components[typeof(T)] = component;
+    public GameObject AddComponent<T>(T component) where T : class, IComponent
+    {
+        _components[typeof(T)] = component;
+        return this;
+    }
 
     public bool HasComponent<T>() where T : class, IComponent
         => _components.ContainsKey(typeof(T));

@@ -8,14 +8,18 @@ public class World
 
     public IReadOnlyList<GameObject> Entities => _gameObjects;
 
-    public GameObject CreateEntity()
+    public GameObject AddGameObject()
     {
         var e = new GameObject(_nextId++);
         _gameObjects.Add(e);
         return e;
     }
 
-    public void AddSystem(ISystem system) => _systems.Add(system);
+    public World AddSystem(ISystem system)
+    {
+        _systems.Add(system);
+        return this;
+    }
 
     public void Update(float deltaTime)
     {
