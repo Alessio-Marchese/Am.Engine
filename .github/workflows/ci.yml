@@ -19,7 +19,7 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore dependencies core
-        run: dotnet restore Am.sln
+        run: dotnet restore Am.slnx
 
       - name: Build core
         run: dotnet build Am.slnx --configuration Release
