@@ -1,7 +1,7 @@
-﻿using Am.Engine.Components;
-using Am.Engine.Ecs;
+﻿using Engine.Ecs.Components;
+using Engine.Ecs.Systems.Interfaces;
 
-namespace Am.Engine.Systems;
+namespace Engine.Ecs.Systems;
 
 public class MovementSystem : ISystem
 {

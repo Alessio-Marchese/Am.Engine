@@ -1,4 +1,7 @@
-﻿namespace Am.Engine.Ecs;
+﻿using Engine.Ecs.Components.Interfaces;
+using Engine.Ecs.Systems.Interfaces;
+
+namespace Engine.Ecs;
 
 public class World
 {
