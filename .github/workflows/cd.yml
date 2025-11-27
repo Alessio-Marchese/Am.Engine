@@ -22,7 +22,9 @@ jobs:
         run: dotnet build Engine/Engine.csproj --configuration Release --no-restore
 
       - name: Pack
-        run: dotnet pack Engine/Engine.csproj --configuration Release -o out
+        working-directory: ./Engine
+        run: dotnet pack Engine.csproj --configuration Release --output ../out
 
       - name: Push to NuGet
         run: dotnet nuget push out/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
