@@ -1,5 +1,6 @@
 ﻿using Engine.Ecs;
 using Engine.Ecs.Components;
+using Engine.Ecs.Components.Tags;
 using Engine.Ecs.Systems;
 using Engine.Rendering;
 using Engine.Rendering.Interfaces;
@@ -17,6 +18,8 @@ namespace Sandbox
         private RenderingHandler _renderSystem;
         private World _world;
         private GameObject _player;
+        private GameObject _background;
+        private GameObject _camera;
 
         public Game1()
         {
@@ -28,7 +31,13 @@ namespace Sandbox
         protected override void Initialize()
         {
             _world = new World()
-                .AddSystem(new MovementSystem());
+                .AddSystem(new MovementSystem())
+                .AddSystem(new CameraFollowSystem(() =>
+                    (
+                        GraphicsDevice.Viewport.Width,
+                        GraphicsDevice.Viewport.Height
+                    ))
+                );
 
             var registry = new MonoGameTextureRegistry();
 
@@ -40,15 +49,21 @@ namespace Sandbox
 
         protected override void LoadContent()
         {
-            var texHandle = _textureLoader.LoadTexture("player", Content.Load<Texture2D>("player")); 
-
-            int centerX = GraphicsDevice.Viewport.Width / 2;
-            int centerY = GraphicsDevice.Viewport.Height / 2;
+            var playerHandle = _textureLoader.LoadTexture("player", Content.Load<Texture2D>("player")); 
+            var backgroundHandle = _textureLoader.LoadTexture("background", Content.Load<Texture2D>("background")); 
 
             _player = _world.AddGameObject()
-                .AddComponent(new Transform { X = centerX, Y = centerY })
-                .AddComponent(new Movement { Speed = 1000 })
-                .AddComponent(new Sprite(texHandle, 200, 200));
+                .AddComponent(new PlayerTag())
+                .AddComponent(new Transform { X = 0, Y = 0 })
+                .AddComponent(new Movement { Speed = 400 })
+                .AddComponent(new Sprite(playerHandle, 200, 200, zIndex: 1));
+
+            _background = _world.AddGameObject()
+                .AddComponent(new Transform { X = 0, Y = -150 })
+                .AddComponent(new Sprite(backgroundHandle, 3000, GraphicsDevice.Viewport.Height * 2));
+
+            _camera = _world.AddGameObject()
+                .AddComponent(new Camera(0, -100));
         }
 
         protected override void Update(GameTime gameTime)

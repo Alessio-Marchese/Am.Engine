@@ -1,6 +1,7 @@
 ﻿using Engine.Ecs;
 using Engine.Ecs.Components;
 using Engine.Rendering.Interfaces;
+using Engine.Utils;
 
 namespace Engine.Rendering;
 
@@ -17,12 +18,24 @@ public class RenderingHandler
     {
         _renderer.Begin();
 
-        foreach (var e in world.WithAll(typeof(Transform), typeof(Sprite)))
-        {
-            var t = e.GetComponent<Transform>()!;
-            var s = e.GetComponent<Sprite>()!;
+        var camEntity = world.With<Camera>().FirstOrDefault() ?? throw new GameObjectNotFoundException(typeof(Camera));
 
-            _renderer.DrawSprite(s.Texture, t.X, t.Y, s.Width, s.Height, s.Scale);
+        var cam = camEntity?.GetComponent<Camera>()!;
+
+        var renderables = world.WithAll(typeof(Transform), typeof(Sprite))
+                               .Select(e => new { e, s = e.GetComponent<Sprite>()! })
+                               .OrderBy(x => x.s.ZIndex)
+                               .ToList();
+
+        foreach (var r in renderables)
+        {
+            var t = r.e.GetComponent<Transform>()!;
+            var s = r.s;
+
+            float px = (t.X - cam.X) * cam.Zoom;
+            float py = (t.Y - cam.Y) * cam.Zoom;
+
+            _renderer.DrawSprite(s.Texture, px, py, s.Width, s.Height, s.Scale * cam.Zoom);
         }
 
         _renderer.End();
