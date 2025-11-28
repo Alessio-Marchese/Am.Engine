@@ -1,10 +1,14 @@
 ﻿using Engine.Ecs.Components.Interfaces;
+using Engine.Ecs.Events;
+using Engine.Ecs.Events.Listeners;
 using Engine.Ecs.Systems.Interfaces;
 
 namespace Engine.Ecs;
 
 public class World
 {
+    public EventBus Events { get; } = new EventBus();
+
     private readonly List<GameObject> _gameObjects = new();
     private readonly List<ISystem> _systems = new();
     private int _nextId = 1;
@@ -24,10 +28,18 @@ public class World
         return this;
     }
 
+    public World RegisterSubscriber(IEventSubscriber subscriber)
+    {
+        subscriber.Register(this);
+        return this;
+    }
+
     public void Update(float deltaTime)
     {
         foreach (var system in _systems)
             system.Update(this, deltaTime);
+
+        Events.Dispatch();
     }
 
     public IEnumerable<GameObject> With<T>() where T : class, IComponent

@@ -1,6 +1,7 @@
 ﻿using Engine.Ecs;
 using Engine.Ecs.Components;
 using Engine.Ecs.Components.Tags;
+using Engine.Ecs.Events.Listeners;
 using Engine.Ecs.Systems;
 using Engine.Rendering;
 using Engine.Rendering.Interfaces;
@@ -18,6 +19,7 @@ namespace Sandbox
         private RenderingHandler _renderSystem;
         private World _world;
         private GameObject _player;
+        private GameObject _crystal;
         private GameObject _background;
         private GameObject _camera;
 
@@ -37,7 +39,9 @@ namespace Sandbox
                         GraphicsDevice.Viewport.Width,
                         GraphicsDevice.Viewport.Height
                     ))
-                );
+                )
+                .AddSystem(new CollisionSystem())
+                .RegisterSubscriber(new PhysicsCollisionSubscriber());
 
             var registry = new MonoGameTextureRegistry();
 
@@ -49,21 +53,28 @@ namespace Sandbox
 
         protected override void LoadContent()
         {
-            var playerHandle = _textureLoader.LoadTexture("player", Content.Load<Texture2D>("player")); 
-            var backgroundHandle = _textureLoader.LoadTexture("background", Content.Load<Texture2D>("background")); 
+            var playerHandle = _textureLoader.LoadTexture("alienGreen", Content.Load<Texture2D>("alienGreen")); 
+            var robotHandle = _textureLoader.LoadTexture("grassBlock", Content.Load<Texture2D>("grassBlock")); 
+            var backgroundHandle = _textureLoader.LoadTexture("backgroundColorForest", Content.Load<Texture2D>("backgroundColorForest")); 
 
             _player = _world.AddGameObject()
+                .AddComponent(new Collider(100, 150))
                 .AddComponent(new PlayerTag())
                 .AddComponent(new Transform { X = 0, Y = 0 })
                 .AddComponent(new Movement { Speed = 400 })
-                .AddComponent(new Sprite(playerHandle, 200, 200, zIndex: 1));
+                .AddComponent(new Sprite(playerHandle, 100, 150, zIndex: 1));
+
+            _crystal = _world.AddGameObject()
+                .AddComponent(new Collider(100, 100))
+                .AddComponent(new Transform { X = 200, Y = 0 })
+                .AddComponent(new Sprite(robotHandle, 100, 100, zIndex: 1));
 
             _background = _world.AddGameObject()
                 .AddComponent(new Transform { X = 0, Y = -150 })
                 .AddComponent(new Sprite(backgroundHandle, 3000, GraphicsDevice.Viewport.Height * 2));
 
             _camera = _world.AddGameObject()
-                .AddComponent(new Camera(0, -100));
+                .AddComponent(new Camera(0, 0));
         }
 
         protected override void Update(GameTime gameTime)
