@@ -33,23 +33,20 @@ public class MonoGameRenderer : IRenderer
         _graphicsDevice.Clear(new Color(r, g, b, a));
     }
 
-    public void DrawSprite(TextureHandle handle, float x, float y, int width, int height, float scale)
+    public void DrawSprite(TextureHandle handle, int x, int y, int width, int height)
     {
         if (!_textureRegistry.Exists(handle))
             throw new InvalidOperationException($"Texture '{handle.Id}' was not registered in the renderer.");
 
         var tex = _textureRegistry.Get(handle);
 
-        int renderW = (int)(width * scale);
-        int renderH = (int)(height * scale);
-
         _spriteBatch.Draw(
             (Texture2D)tex,
             new Rectangle(
-                (int)x - renderW / 2,
-                (int)y - renderH / 2,
-                renderW,
-                renderH
+                x,
+                y,
+                width,
+                height
             ),
             Color.White
         );

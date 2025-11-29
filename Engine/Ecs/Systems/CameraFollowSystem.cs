@@ -16,21 +16,22 @@ public class CameraFollowSystem : ISystem
 
     public void Update(World world, float dt)
     {
-        var cameraEntity = world.With<Camera>().FirstOrDefault();
-        var playerEntity = world.With<PlayerTag>().FirstOrDefault();
+        var camEntity = world.With<Camera>().FirstOrDefault();
+        var player = world.With<PlayerTag>().FirstOrDefault();
 
-        if (cameraEntity == null) throw new GameObjectNotFoundException(typeof(Camera));
-        if (playerEntity == null) throw new GameObjectNotFoundException(typeof(PlayerTag));
+        if (camEntity == null) throw new GameObjectNotFoundException(typeof(Camera));
+        if (player == null) throw new GameObjectNotFoundException(typeof(PlayerTag));
 
-        var cam = cameraEntity.GetComponent<Camera>()!;
-        var p = playerEntity.GetComponent<Transform>()!;
+        var cam = camEntity.GetComponent<Camera>()!;
+        var t = player.GetComponent<Transform>()!;
 
         var (vw, vh) = _viewportProvider();
-        float halfW = vw * 0.5f;
-        float halfH = vh * 0.5f;
 
-        float targetX = (p.X - halfW) + cam.OffsetX;
-        float targetY = (p.Y - halfH) + cam.OffsetY;
+        float halfWWorld = (vw / cam.Zoom) * 0.5f;
+        float halfHWorld = (vh / cam.Zoom) * 0.5f;
+
+        float targetX = t.X - halfWWorld + cam.OffsetX;
+        float targetY = t.Y - halfHWorld + cam.OffsetY;
 
         cam.X += (targetX - cam.X) * cam.FollowSpeed * dt;
         cam.Y += (targetY - cam.Y) * cam.FollowSpeed * dt;

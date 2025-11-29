@@ -1,4 +1,4 @@
-﻿namespace Engine.Ecs.Events.Listeners;
+﻿namespace Engine.Ecs.Events.Interfaces;
 
 /// <summary>
 /// Defines a contract for subscribing to events within a specified world context.

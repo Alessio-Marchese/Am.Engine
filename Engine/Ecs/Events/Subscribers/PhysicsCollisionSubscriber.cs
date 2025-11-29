@@ -1,7 +1,8 @@
 ﻿using Engine.Ecs.Components;
+using Engine.Ecs.Events.Interfaces;
 using Engine.Utils;
 
-namespace Engine.Ecs.Events.Listeners;
+namespace Engine.Ecs.Events.Subscribers;
 
 public class PhysicsCollisionSubscriber : IEventSubscriber
 {

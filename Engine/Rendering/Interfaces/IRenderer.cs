@@ -9,5 +9,5 @@ public interface IRenderer
 
     void Clear(float r, float g, float b, float a = 1f);
 
-    void DrawSprite(TextureHandle handle, float x, float y, int width, int height, float scale);
+    void DrawSprite(TextureHandle handle, int x, int y, int width, int height);
 }

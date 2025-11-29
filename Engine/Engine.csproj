@@ -9,7 +9,7 @@
 <!-- Info NuGet -->
 <PropertyGroup>
 	<PackageId>Am.Engine</PackageId>
-	<Version>1.0.2</Version>
+	<Version>1.0.3</Version>
 	<Authors>Alessio Marchese</Authors>
 	<Description>.NET Game Engine</Description>
 	<PackageTags>engine game .net gameengine</PackageTags>

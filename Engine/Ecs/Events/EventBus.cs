@@ -1,4 +1,6 @@
-﻿namespace Engine.Ecs.Events;
+﻿using Engine.Ecs.Events.Interfaces;
+
+namespace Engine.Ecs.Events;
 
 /// <summary>
 /// Provides a simple event bus for subscribing to, publishing, and dispatching events.
@@ -6,7 +8,7 @@
 /// <remarks>The EventBus enables decoupled communication between components by allowing event handlers to
 /// subscribe to specific event types and receive notifications when those events are published. Events are queued and
 /// dispatched in the order they are published.</remarks>
-public class EventBus
+public class EventBus : IEventBus
 {
     private readonly Dictionary<Type, List<Delegate>> _subscribers = new();
 

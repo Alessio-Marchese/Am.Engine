@@ -23,7 +23,7 @@ public class RenderingHandler
         var cam = camEntity?.GetComponent<Camera>()!;
 
         var renderables = world.WithAll(typeof(Transform), typeof(Sprite))
-                               .Select(e => new { e, s = e.GetComponent<Sprite>()! })
+                               .Select(e => new { e, s = e.GetComponent<Sprite>()!})
                                .OrderBy(x => x.s.ZIndex)
                                .ToList();
 
@@ -32,10 +32,19 @@ public class RenderingHandler
             var t = r.e.GetComponent<Transform>()!;
             var s = r.s;
 
-            float px = (t.X - cam.X) * cam.Zoom;
-            float py = (t.Y - cam.Y) * cam.Zoom;
+            //adjust x - y based on cam
+            var px = (t.X - cam.X) * cam.Zoom;
+            var py = (t.Y - cam.Y) * cam.Zoom;
 
-            _renderer.DrawSprite(s.Texture, px, py, s.Width, s.Height, s.Scale * cam.Zoom);
+            //scale the render size
+            var renderW = s.Width * s.Scale;
+            var renderH = s.Height * s.Scale;
+
+            //pivot based on the center of H and W
+            var rx = px - renderW / 2;
+            var ry = py - renderH / 2;
+
+            _renderer.DrawSprite(s.Texture, (int)rx, (int)ry, (int)renderW, (int)renderH);
         }
 
         _renderer.End();

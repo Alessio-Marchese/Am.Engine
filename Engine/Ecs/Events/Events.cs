@@ -1,4 +1,6 @@
-﻿namespace Engine.Ecs.Events;
+﻿using Engine.Ecs.Events.Interfaces;
+
+namespace Engine.Ecs.Events;
 
 public record CollisionEvent(GameObject A, GameObject B) : IEvent { }
 

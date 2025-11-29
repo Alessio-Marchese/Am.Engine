@@ -1,4 +1,4 @@
-﻿namespace Engine.Ecs.Events;
+﻿namespace Engine.Ecs.Events.Interfaces;
 
 /// <summary>
 /// Represents a marker interface for event types within the application.

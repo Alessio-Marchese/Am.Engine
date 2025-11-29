@@ -1,6 +1,6 @@
 ﻿using Engine.Ecs.Components.Interfaces;
 using Engine.Ecs.Events;
-using Engine.Ecs.Events.Listeners;
+using Engine.Ecs.Events.Interfaces;
 using Engine.Ecs.Systems.Interfaces;
 
 namespace Engine.Ecs;
