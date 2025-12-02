@@ -80,7 +80,6 @@ namespace Tests.Integration.Events
         [Fact]
         public void ShouldNotPublishEvent_WhenEdgesJustTouch()
         {
-            var half = 50; // width/height / 2
             var (world, listener) = CreateWorld(
                 ax: 0, ay: 0,
                 bx: 100, by: 0 // touching edge exactly

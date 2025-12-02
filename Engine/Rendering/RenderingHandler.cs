@@ -37,8 +37,8 @@ public class RenderingHandler
             var py = (t.Y - cam.Y) * cam.Zoom;
 
             //scale the render size
-            var renderW = s.Width * s.Scale;
-            var renderH = s.Height * s.Scale;
+            var renderW = s.Width * s.Scale * cam.Zoom;
+            var renderH = s.Height * s.Scale * cam.Zoom;
 
             //pivot based on the center of H and W
             var rx = px - renderW / 2;

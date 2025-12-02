@@ -4,7 +4,7 @@ using Engine.Rendering.Models;
 namespace Engine.Ecs.Components;
 public class Sprite : IComponent
 {
-    public TextureHandle Texture { get; }
+    public TextureHandle Texture { get; set; }
     public int Width { get; }
     public int Height { get; }
     public float Scale { get; set; } = 1f;

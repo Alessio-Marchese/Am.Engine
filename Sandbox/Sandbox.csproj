@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0-windows</TargetFramework>
@@ -25,5 +25,10 @@
   </Target>
 <ItemGroup>
 	<MonoGameContentReference Include="Content\Content.mgcb" />
+</ItemGroup>
+<ItemGroup>
+  <Folder Include="Content\AttackRight\" />
+  <Folder Include="Content\PlayerIdleLeft\" />
+  <Folder Include="Content\PlayerRunRight\" />
 </ItemGroup>
 </Project>
